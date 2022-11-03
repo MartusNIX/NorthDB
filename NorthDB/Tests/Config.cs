@@ -55,6 +55,29 @@ namespace NorthDB.Tests
                     Console.WriteLine($"{c.CategoryId}.{c.CategoryName}.{c.Description}");
                 }
             }
+
+            using(NorthwindContext db = new NorthwindContext(options))
+            {
+                Category category = db.Categories.ToList()[8];
+                if (category != null)
+                {
+                    category.CategoryName = "Alcohol";
+                    category.Description = "Wine, Cidre, Beer";
+                    db.Categories.Update(category);
+                    db.SaveChanges();
+                }
+            }
+
+            using (NorthwindContext db = new NorthwindContext(options))
+            {
+                var categories = db.Categories.ToList();
+                Console.WriteLine("Current data:");
+                foreach (Category c in categories)
+                {
+                    Console.WriteLine($"{c.CategoryId}.{c.CategoryName}.{c.Description}");
+                }
+            }
+
         }
     }
 }
