@@ -10,7 +10,7 @@ namespace NorthDB.Tests
 {
     class Config
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = new ConfigurationBuilder();
             builder.SetBasePath(Directory.GetCurrentDirectory());
@@ -44,19 +44,16 @@ namespace NorthDB.Tests
 
                 db.Categories.Add(category1);
                 db.SaveChanges();
-            }
 
-            using (NorthwindContext db = new NorthwindContext(options))
-            {
                 var categories = db.Categories.ToList();
-                Console.WriteLine("Current data:");
+                Console.WriteLine("Data after adding:");
                 foreach (Category c in categories)
                 {
                     Console.WriteLine($"{c.CategoryId}.{c.CategoryName}.{c.Description}");
                 }
             }
 
-            using(NorthwindContext db = new NorthwindContext(options))
+            using (NorthwindContext db = new NorthwindContext(options))
             {
                 Category category = db.Categories.ToList()[8];
                 if (category != null)
@@ -66,12 +63,26 @@ namespace NorthDB.Tests
                     db.Categories.Update(category);
                     db.SaveChanges();
                 }
+
+                var categories = db.Categories.ToList();
+                Console.WriteLine("Data after updating:");
+                foreach (Category c in categories)
+                {
+                    Console.WriteLine($"{c.CategoryId}.{c.CategoryName}.{c.Description}");
+                }
             }
 
             using (NorthwindContext db = new NorthwindContext(options))
             {
+                Category category = db.Categories.ToList()[8];
+                if (category != null)
+                {
+                    db.Categories.Remove(category);
+                    db.SaveChanges();
+                }
+
                 var categories = db.Categories.ToList();
-                Console.WriteLine("Current data:");
+                Console.WriteLine("Data after deleting:");
                 foreach (Category c in categories)
                 {
                     Console.WriteLine($"{c.CategoryId}.{c.CategoryName}.{c.Description}");
