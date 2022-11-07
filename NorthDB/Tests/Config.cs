@@ -20,9 +20,10 @@ namespace NorthDB.Tests
         public static void Main(string[] args)
         {
             ShowData();
-            AddData();
-            UpdateData();
-            DeleteData();
+            CheckDataShows();
+            //AddData();
+            //UpdateData();
+            //DeleteData();
         }
 
         public static void ShowData()
@@ -34,6 +35,17 @@ namespace NorthDB.Tests
                 foreach (Category c in categories)
                 {
                     Console.WriteLine($"{c.CategoryId}.{c.CategoryName}.{c.Description}");
+                }
+            }
+        }
+
+        public static void CheckDataShows()
+        {
+            using (NorthwindContext db = new NorthwindContext())
+            {
+                if(db != null)
+                {
+                    Console.WriteLine("\n Data is presented");
                 }
             }
         }
@@ -52,7 +64,7 @@ namespace NorthDB.Tests
                 db.SaveChanges();
 
                 var categories = db.Categories.ToList();
-                Console.WriteLine("Data after adding:");
+                Console.WriteLine("\n Data after adding:");
                 foreach (Category c in categories)
                 {
                     Console.WriteLine($"{c.CategoryId}.{c.CategoryName}.{c.Description}");
@@ -74,7 +86,7 @@ namespace NorthDB.Tests
                 }
 
                 var categories = db.Categories.ToList();
-                Console.WriteLine("Data after updating:");
+                Console.WriteLine("\n Data after updating:");
                 foreach (Category c in categories)
                 {
                     Console.WriteLine($"{c.CategoryId}.{c.CategoryName}.{c.Description}");
@@ -94,7 +106,7 @@ namespace NorthDB.Tests
                 }
 
                 var categories = db.Categories.ToList();
-                Console.WriteLine("Data after deleting:");
+                Console.WriteLine("\n Data after deleting:");
                 foreach (Category c in categories)
                 {
                     Console.WriteLine($"{c.CategoryId}.{c.CategoryName}.{c.Description}");

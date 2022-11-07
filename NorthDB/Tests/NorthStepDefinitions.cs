@@ -21,13 +21,13 @@ namespace NorthDB.Tests
         [When(@"the user chooses the table")]
         public static void WhenTheUserChoosesTheTable()
         {
-            
+            Config.ShowData();
         }
 
         [Then(@"the user sees data in the table")]
         public static void ThenTheUserSeesDataInTheTable()
         {
-            
+            Config.CheckDataShows();
         }
     }
 }
